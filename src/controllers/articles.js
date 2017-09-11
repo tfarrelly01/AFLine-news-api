@@ -6,7 +6,9 @@ exports.getAllArticlesByTopic = (req, res, next) => {
     // find all articles that match the slug
     Articles.find({ belongs_to: topic_id })
         .then((articles) => {
-
+            if (articles.length < 1) {
+                return next({ status: 404, message: 'No Articles found for topic cooking' });
+            }
             const foundArticles = articles.map((article) => {
                 return {
                     title: article.title,

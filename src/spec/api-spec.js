@@ -66,6 +66,20 @@ describe('API', function () {
           }
         });
     });
+
+    it('responds with 404 if topic doesnt exist', function (done) {
+      request(server)
+        .get('/api/topics/cooking/articles')
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.be.an('object');
+            expect(res.body.message).to.equal('No Articles found for topic cooking');
+            done();
+          }
+        });
+    });
   });
-      
+
 });
