@@ -113,11 +113,15 @@ exports.updateArticleVote = (req, res, next) => {
   const { article_id } = req.params;
   const { vote } = req.query;
 
+  // if invalid article_id then return 422
+  if (!mongoose.Types.ObjectId.isValid(article_id)) 
+    return next({ status: 422, message: 'Invalid Article Id' });
+
   Articles.findById({ _id: article_id })
     .then((article) => {  
       if (article === null) 
         return next({ status: 404, message: 'Article Not Found' });
-        
+
       if (vote === 'up') article.votes += 1;
       if (vote === 'down' && article.votes >  0) article.votes -= 1;
 
