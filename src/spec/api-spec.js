@@ -264,5 +264,23 @@ describe('API', function () {
         });
     });
   });
+  
+  describe('POST /api/articles/:article_id/comments', function () {
+    it('creates a new comment for a particular article', function (done) {
+      request(server)
+        .post(`/api/articles/${usefullIds.article_id}/comments`)
+        .send({ body: 'test' })
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(201);
+            expect(res.body).to.be.an('object');
+            expect(res.body.comment._id).to.not.equal(undefined);
+            expect(res.body.comment.body).to.equal('test');
+            done();
+          }
+        });
+    });
+  });
 
 });

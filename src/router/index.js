@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { getAllTopics } = require('../controllers/topics');
 const { getAllArticlesByTopic, getAllArticles, getArticleById, updateArticleVote} = require('../controllers/articles');
-const { getAllCommentsByArticle} = require('../controllers/comments');
+const { getAllCommentsByArticle, addNewComment} = require('../controllers/comments');
 
 // | `GET /api/topics` | Get all the topics |
 router.route('/topics')
@@ -25,7 +25,10 @@ router.route('/articles/:article_id')
     .put(updateArticleVote);
 
 // | `GET /api/articles/:article_id/comments` | Get all comments for an individual article |
+// | `POST /api/articles/:article_id/comments` | Add a new comment to an article. This route requires a 
+// JSON body with  a comment key and value pair e.g: {"comment": "This is my new comment"} |
 router.route('/articles/:article_id/comments')
-    .get(getAllCommentsByArticle);
+    .get(getAllCommentsByArticle)
+    .post(addNewComment);
 
 module.exports = router;

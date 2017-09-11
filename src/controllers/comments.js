@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {Comments} = require('../models/models');
+const {Articles, Comments} = require('../models/models');
 
 exports.getAllCommentsByArticle = (req, res, next) => {
   // get article id
@@ -16,6 +16,27 @@ exports.getAllCommentsByArticle = (req, res, next) => {
         return next({ status: 404, message: 'Comments Not Found' });
 
       res.status(200).json({ comments });
+    })
+    .catch(next);
+};
+
+exports.addNewComment = (req, res, next) => {
+  // get article id
+  const { article_id } = req.params;
+
+  // Find article to comment against
+  Articles.findById({ _id: article_id })
+    .then(() => {
+      
+      let commentDoc = new Comments({
+        body: req.body.body,
+        belongs_to: article_id
+      });
+
+      commentDoc.save()
+        .then((comment) => {
+          res.status(201).json({ comment });
+        });
     })
     .catch(next);
 };
