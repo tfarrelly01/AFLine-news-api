@@ -1,0 +1,43 @@
+{
+  "name": "afline-news-api",
+  "version": "1.0.0",
+  "description": "AF Line News API ",
+  "main": "server.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha ./src/spec",
+    "start": "NODE_ENV=dev nodemon ./src/server.js",
+    "lint": "eslint ./",
+    "posttest": "npm run lint",
+    "precommit": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tfarrelly01/AFLine-news-api.git"
+  },
+  "author": "Tony Farrelly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tfarrelly01/AFLine-news-api/issues"
+  },
+  "homepage": "https://github.com/tfarrelly01/AFLine-news-api#readme",
+  "dependencies": {
+    "async": "^2.5.0",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.18.0",
+    "chance": "^1.0.11",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "log4js": "^2.3.3",
+    "moment": "^2.18.1",
+    "mongoose": "^4.11.11",
+    "morgan": "^1.8.2",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.6.1",
+    "husky": "^0.14.3",
+    "lint": "^1.1.2",
+    "supertest": "^3.0.0"
+  }
+}
