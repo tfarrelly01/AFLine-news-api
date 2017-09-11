@@ -7,7 +7,9 @@ exports.getAllCommentsByArticle = (req, res, next) => {
   // find all comments made against the article
   Comments.find({ belongs_to: article_id })
     .then((comments) => {
-
+      if (comments.length < 1)
+        return next({ status: 404, message: 'Comments Not Found' });
+        
       res.status(200).json({ comments });
     })
     .catch(next);

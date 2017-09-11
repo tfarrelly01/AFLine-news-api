@@ -234,6 +234,22 @@ describe('API', function () {
           }
         });
     });
+
+    it('responds with 404 if article doesnt exist', function (done) {
+      const article_id = usefullIds.comment_id;
+
+      request(server)
+        .get(`/api/articles/${article_id}/comments`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.be.an('object');
+            expect(res.body.message).to.equal('Comments Not Found');
+            done();
+          }
+        });
+    });
   });
 
 });
