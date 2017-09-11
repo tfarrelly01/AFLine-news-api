@@ -100,4 +100,21 @@ describe('API', function () {
     });
   });
 
+  describe('GET /api/articles/:article_id', function () {
+    it('responds with the article record for a particular article id', function (done) {
+      request(server)
+        .get(`/api/articles/${usefullIds.article_id}`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.an('object');
+            expect(res.body.article.title).to.equal('Cats are great');
+            done();
+          }
+        });
+    });
+
+  });
+
 });

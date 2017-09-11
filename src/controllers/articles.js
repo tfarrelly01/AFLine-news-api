@@ -68,3 +68,16 @@ exports.getAllArticles = (req, res, next) => {
     })
     .catch(next);
 };
+
+exports.getArticleById = (req, res, next) => {
+  // find article by id
+  const { article_id } = req.params;
+
+  // find article that matches article_id
+  Articles.findOne({ _id: article_id })
+    .then((article) => {
+      
+      res.status(200).json({article});
+    })
+    .catch(next);
+};
