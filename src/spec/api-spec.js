@@ -281,6 +281,22 @@ describe('API', function () {
           }
         });
     });
+
+    it('provides appropriate error message if article doesnt exist for the comment to be added', function (done) {
+      const article_id = usefullIds.comment_id;
+      request(server)
+        .post(`/api/articles/${article_id}/comments`)
+        .send({ body: 'test' })
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.be.an('object');
+            expect(res.body.message).to.equal('Article Not Found, cannot add comment');
+            done();
+          }
+        });
+    });
   });
 
 });

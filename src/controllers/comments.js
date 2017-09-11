@@ -26,7 +26,9 @@ exports.addNewComment = (req, res, next) => {
 
   // Find article to comment against
   Articles.findById({ _id: article_id })
-    .then(() => {
+    .then((article) => {
+      if (article === null) 
+        return next({status: 404, message: 'Article Not Found, cannot add comment'});
       
       let commentDoc = new Comments({
         body: req.body.body,
