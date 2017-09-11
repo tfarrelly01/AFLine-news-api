@@ -76,6 +76,9 @@ exports.getArticleById = (req, res, next) => {
   // find article that matches article_id
   Articles.findOne({ _id: article_id })
     .then((article) => {
+      //   if (user.length < 1) {  
+      if (article === null)
+        return next({ status: 404, message: 'Article Not Found' });
       
       res.status(200).json({article});
     })
