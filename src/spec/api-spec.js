@@ -190,6 +190,21 @@ describe('API', function () {
           done();
         });
     });
+
+    it('responds with 404 if article doesnt exist', function (done) {
+      let articleId = usefullIds.comment_id;
+      request(server)
+        .put(`/api/articles/${articleId}?vote=down`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.be.an('object');
+            expect(res.body.message).to.equal('Article Not Found');
+            done();
+          }
+        });
+    });
   });
 
 });

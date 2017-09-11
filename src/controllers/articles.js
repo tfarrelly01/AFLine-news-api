@@ -115,6 +115,9 @@ exports.updateArticleVote = (req, res, next) => {
 
   Articles.findById({ _id: article_id })
     .then((article) => {  
+      if (article === null) 
+        return next({ status: 404, message: 'Article Not Found' });
+        
       if (vote === 'up') article.votes += 1;
       if (vote === 'down' && article.votes >  0) article.votes -= 1;
 
