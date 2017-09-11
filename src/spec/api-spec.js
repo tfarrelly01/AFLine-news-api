@@ -344,6 +344,21 @@ describe('API', function () {
           }
         });
     });
+
+    it('responds with 404 if comment doesnt exist', function (done) {
+      let commentId = usefullIds.article_id;
+      request(server)
+        .get(`/api/comments/${commentId}`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.be.an('object');
+            expect(res.body.message).to.equal('Comment Not Found');
+            done();
+          }
+        });
+    });
   });
 
 });

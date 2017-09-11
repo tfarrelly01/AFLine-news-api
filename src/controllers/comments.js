@@ -65,6 +65,8 @@ exports.getCommentById = (req, res, next) => {
   // find comment that matches comment_id
   Comments.findOne({ _id: comment_id })
     .then((comment) => {
+      if (comment === null) 
+        return next({ status: 404, message: 'Comment Not Found' });
 
       res.status(200).json({ comment });
     })
