@@ -41,8 +41,18 @@ function saveArticles(cb) {
   });
 }
 
+function saveComments(articlesArray, cb) {
+  const articleId = articlesArray[0]._id;
+  const comment = new models.Comments({ body: 'this is a comment', belongs_to: articleId, created_by: 'afline' });
+  const comment2 = new models.Comments({ body: 'this is another comment', belongs_to: articleId, created_by: 'afline' });
+  models.Comments.create([comment, comment2], err => {
+    if (err) cb(err);
+    else cb(null, { article_id: articleId, comment_id: comment._id, non_northcoder_comment: comment2._id });
+  });
+}
+
 function saveTestData(DB, cb) {
-    async.waterfall([saveUser, saveTopics, saveArticles], (err, ids) => {
+    async.waterfall([saveUser, saveTopics, saveArticles, saveComments], (err, ids) => {
       if (err) cb(err);
       else {
         console.log('Test data seeded successfully.');
