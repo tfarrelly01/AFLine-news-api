@@ -39,4 +39,19 @@ app.listen(PORT, function() {
     console.log(`listening on port ${PORT}`);
 });
 
+// sure of error
+app.use(function(err, req, res, next) {
+    if (err.status) {
+        return res.status(err.status).json({ message: err.message });
+    }
+    next(err);
+});
+
+//  not sure of error 
+app.use(function (err, req, res, next) {
+ console.log(err);
+ res.status(500).json({message: 'Server error'});
+ next();
+});
+
 module.exports = app;
