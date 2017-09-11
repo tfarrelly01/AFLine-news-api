@@ -220,4 +220,20 @@ describe('API', function () {
     });
   });
 
+  describe('GET /api/articles/:article_id/comments', function () {
+    it('responds with all comments for a particular article', function (done) {
+      request(server)
+        .get(`/api/articles/${usefullIds.article_id}/comments`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.an('object');
+            expect(res.body.comments.length).to.equal(2);
+            done();
+          }
+        });
+    });
+  });
+
 });
