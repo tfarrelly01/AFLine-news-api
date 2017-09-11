@@ -359,6 +359,20 @@ describe('API', function () {
           }
         });
     });
+
+    it('responds with 422 if the comment id is invalid', function (done) {
+      request(server)
+        .get('/api/comments/fakeid/')
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(422);
+            expect(res.body).to.be.an('object');
+            expect(res.body.message).to.equal('Invalid Comment Id');
+            done();
+          }
+        });
+    });
   });
 
 });

@@ -62,6 +62,10 @@ exports.getCommentById = (req, res, next) => {
   // find comment by id
   const { comment_id } = req.params;
 
+  // if invalid comment_id then return 422
+  if (!mongoose.Types.ObjectId.isValid(comment_id)) 
+    return next({ status: 422, message: 'Invalid Comment Id' });
+
   // find comment that matches comment_id
   Comments.findOne({ _id: comment_id })
     .then((comment) => {
