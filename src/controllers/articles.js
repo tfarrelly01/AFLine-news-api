@@ -35,3 +35,13 @@ exports.getAllArticlesByTopic = (req, res, next) => {
     })
     .catch(next);
 };
+
+exports.getAllArticles = (req, res, next) => {
+    Articles.find()
+        .then((articles) => {
+            if (articles.length < 1) return next({ status: 404, message: 'No Articles Found' });
+
+            return res.status(200).json({ articles });
+        })
+        .catch(next);
+};
