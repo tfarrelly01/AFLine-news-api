@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const { Articles, Comments } = require('../models/models');
 
 exports.getAllArticlesByTopic = (req, res, next) => {
@@ -72,6 +73,10 @@ exports.getAllArticles = (req, res, next) => {
 exports.getArticleById = (req, res, next) => {
   // find article by id
   const { article_id } = req.params;
+
+  // if invalid article_id then return 422
+  if (!mongoose.Types.ObjectId.isValid(article_id)) 
+    return next({ status: 422, message: 'Invalid Article Id' });
 
   // find article that matches article_id
   Articles.findOne({ _id: article_id })
