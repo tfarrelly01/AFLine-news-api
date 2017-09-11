@@ -107,3 +107,21 @@ exports.getArticleById = (req, res, next) => {
     })
     .catch(next);
 };
+
+exports.updateArticleVote = (req, res, next) => {
+  // find article by id
+  const { article_id } = req.params;
+  const { vote } = req.query;
+
+  Articles.findById({ _id: article_id })
+    .then((article) => {  
+      if (vote === 'up') article.votes += 1;
+      if (vote === 'down' && article.votes >  0) article.votes -= 1;
+
+      article.save()
+        .then((article) => {
+          res.status(201).json({article});
+        });
+    })
+    .catch(next);
+};

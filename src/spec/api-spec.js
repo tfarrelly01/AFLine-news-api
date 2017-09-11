@@ -145,4 +145,21 @@ describe('API', function () {
     });
   });
 
+  describe('PUT /api/articles/:article_id?vote=[up/down]', function () {
+    it('should increment the votes of an article by one', function (done) {
+      let articleId = usefullIds.article_id;
+      request(server)
+        .put(`/api/articles/${articleId}?vote=up`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(201);
+            expect(res.body).to.be.an('object');
+            expect(res.body.article.votes).to.equal(1);
+            done();
+          }
+        });
+    });
+  });
+
 });
