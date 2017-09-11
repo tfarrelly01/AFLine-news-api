@@ -62,6 +62,7 @@ describe('API', function () {
             expect(res.body.articles[0].belongs_to).to.equal('cats');
             expect(res.body.articles.length).to.equal(1);
             expect(res.body.articles[0].title).to.equal('Cats are great');
+            expect(res.body.articles[0].comments).to.equal(2);
             done();
           }
         });
