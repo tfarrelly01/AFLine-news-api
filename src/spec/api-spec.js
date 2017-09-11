@@ -1,4 +1,7 @@
 process.env.NODE_ENV = 'test';
+const { expect } = require('chai');
+const request = require('supertest');
+const server = require('../server');
 const mongoose = require('mongoose');
 const saveTestData = require('../seed/test.seed');
 const config = require('../config');
@@ -14,6 +17,21 @@ describe('API', function () {
         console.log(usefullIds);
         done();
       }));
+  });
+
+  describe('GET /', function () {
+    it('responds with status code 200', function (done) {
+      console.log(usefullIds);
+      request(server)
+        .get('/')
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(200);
+            done();
+          }
+        });
+    });
   });
 
 });
