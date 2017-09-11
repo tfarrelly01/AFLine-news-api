@@ -250,6 +250,19 @@ describe('API', function () {
           }
         });
     });
+
+    it('responds with 422 if the article id is invalid', function (done) {
+      request(server)
+        .get('/api/articles/fakeid/comments')
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(422);
+            expect(res.body.message).to.equal('Invalid Article Id');
+            done();
+          }
+        });
+    });
   });
 
 });
