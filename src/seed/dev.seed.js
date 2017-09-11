@@ -8,7 +8,7 @@ const logger = log4js.getLogger();
 const _ = require('underscore');
 const Chance = require('chance');
 const chance = new Chance();
-
+const moment = require('moment');
 const DBs = require('../config').DB;
 
 mongoose.connect(DBs.dev, function (err) {
@@ -147,7 +147,7 @@ function addComments(docIds, done) {
         belongs_to: id,
         created_by: userData[_.sample(_.range(6))].username,
         votes: _.sample(_.range(2, 11)),
-        created_at: new Date().getTime()
+        created_at: getRandomStamp()
       };
       var commentDoc = new models.Comments(comment);
       commentDoc.save(function (err) {
@@ -165,4 +165,13 @@ function addComments(docIds, done) {
     if (err) return done(err);
     return done();
   });
+}
+
+function getRandomStamp() {
+  return new Date (
+    moment().subtract(_.sample(_.range(1,7)), 'days')
+    .subtract(_.sample(_.range(1,24)), 'hours')
+    .subtract(_.sample(_.range(1,60)), 'minutes')
+    .format()
+  ).getTime();
 }
