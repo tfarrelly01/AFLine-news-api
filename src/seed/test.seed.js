@@ -15,6 +15,11 @@ const topics = [
   new models.Topics({ title: 'Cats', slug: 'cats' })
 ];
 
+const articles = [
+  new models.Articles({ title: 'Cats are great', body: 'something', belongs_to: 'cats' }),
+  new models.Articles({ title: 'Football is fun', body: 'something', belongs_to: 'football' })
+];
+
 function saveUser(cb) {
   user.save((err) => {
     if (err) cb(err);
@@ -29,8 +34,15 @@ function saveTopics(cb) {
   });
 }
 
+function saveArticles(cb) {
+  models.Articles.create(articles, (err, docs) => {
+    if (err) cb(err);
+    else cb(null, docs);
+  });
+}
+
 function saveTestData(DB, cb) {
-    async.waterfall([saveUser, saveTopics], (err, ids) => {
+    async.waterfall([saveUser, saveTopics, saveArticles], (err, ids) => {
       if (err) cb(err);
       else {
         console.log('Test data seeded successfully.');
