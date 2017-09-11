@@ -1,6 +1,17 @@
 const mongoose = require('mongoose');
 const {Articles, Comments} = require('../models/models');
 
+exports.getAllComments = (req, res, next) => {
+  Comments.find()
+    .then((comments) => {
+      if (comments.length < 1) 
+        return next({ status: 404, message: 'No comments Found' });
+
+      res.status(200).json({ comments });
+    })
+    .catch(next);
+};
+
 exports.getAllCommentsByArticle = (req, res, next) => {
   // get article id
   const { article_id } = req.params;
@@ -27,7 +38,7 @@ exports.addNewComment = (req, res, next) => {
   // if invalid article_id then return 422
   if (!mongoose.Types.ObjectId.isValid(article_id)) 
     return next({ status: 422, message: 'Invalid Article Id, cannot add comment'});
-    
+
   // Find article to comment against
   Articles.findById({ _id: article_id })
     .then((article) => {
