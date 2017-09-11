@@ -24,6 +24,10 @@ exports.addNewComment = (req, res, next) => {
   // get article id
   const { article_id } = req.params;
 
+  // if invalid article_id then return 422
+  if (!mongoose.Types.ObjectId.isValid(article_id)) 
+    return next({ status: 422, message: 'Invalid Article Id, cannot add comment'});
+    
   // Find article to comment against
   Articles.findById({ _id: article_id })
     .then((article) => {

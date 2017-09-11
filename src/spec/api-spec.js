@@ -297,6 +297,20 @@ describe('API', function () {
           }
         });
     });
+
+    it('responds with 422 if the article id is invalid', function (done) {
+      request(server)
+        .post('/api/articles/fakeid/comments')
+        .send({ body: 'test' })
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(422);
+            expect(res.body.message).to.equal('Invalid Article Id, cannot add comment');
+            done();
+          }
+        });
+    });
   });
 
 });
