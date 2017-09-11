@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { getAllTopics } = require('../controllers/topics');
 const { getAllArticlesByTopic, getAllArticles, getArticleById, updateArticleVote} = require('../controllers/articles');
-const { getAllCommentsByArticle, addNewComment, getAllComments} = require('../controllers/comments');
+const { getAllCommentsByArticle, addNewComment, getAllComments, getCommentById} = require('../controllers/comments');
 
 // | `GET /api/topics` | Get all the topics |
 router.route('/topics')
@@ -34,5 +34,9 @@ router.route('/articles/:article_id/comments')
 // |`GET /api/comments` | Get all the comments |
 router.route('/comments')
     .get(getAllComments);
+
+// | `GET /api/comments/:comment_id` | Get comment by id |
+router.route('/comments/:comment_id')
+    .get(getCommentById);
 
 module.exports = router;

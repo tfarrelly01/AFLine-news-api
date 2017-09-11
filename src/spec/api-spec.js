@@ -329,4 +329,21 @@ describe('API', function () {
     });
   });
 
+  describe('GET /api/comments/:comment_id', function () {
+    it('responds with the comment record for a particular comment id', function (done) {
+      request(server)
+        .get(`/api/comments/${usefullIds.comment_id}`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.an('object');
+            expect(res.body.comment.body).to.equal('this is a comment');
+            expect(res.body.comment.created_by).to.equal('afline');
+            done();
+          }
+        });
+    });
+  });
+
 });

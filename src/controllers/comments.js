@@ -57,3 +57,16 @@ exports.addNewComment = (req, res, next) => {
     })
     .catch(next);
 };
+
+exports.getCommentById = (req, res, next) => {
+  // find comment by id
+  const { comment_id } = req.params;
+
+  // find comment that matches comment_id
+  Comments.findOne({ _id: comment_id })
+    .then((comment) => {
+
+      res.status(200).json({ comment });
+    })
+    .catch(next);
+};
