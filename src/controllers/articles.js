@@ -79,13 +79,31 @@ exports.getArticleById = (req, res, next) => {
     return next({ status: 422, message: 'Invalid Article Id' });
 
   // find article that matches article_id
+  // Users.find({ username: username })
   Articles.findOne({ _id: article_id })
     .then((article) => {
       //   if (user.length < 1) {  
       if (article === null)
         return next({ status: 404, message: 'Article Not Found' });
       
-      res.status(200).json({article});
+      // count number of comments made against the article
+      const commentCount = Comments.count({belongs_to: article._id});
+
+      Promise.all([article, commentCount])
+        .then(([article, commentCount]) => {
+            const articleWithCommentCount = {
+              _id: article._id,
+              title: article.title,
+              body: article.body,
+              created_by: article.created_by,
+              belongs_to: article.belongs_to,
+              votes: article.votes,
+              __v: article.__v,
+              comments: commentCount
+            };
+          return res.status(200).json({article: articleWithCommentCount});
+        })
+        .catch(next);
     })
     .catch(next);
 };

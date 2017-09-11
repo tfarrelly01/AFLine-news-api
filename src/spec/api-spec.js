@@ -110,6 +110,7 @@ describe('API', function () {
             expect(res.status).to.equal(200);
             expect(res.body).to.be.an('object');
             expect(res.body.article.title).to.equal('Cats are great');
+            expect(res.body.article.comments).to.equal(2);
             done();
           }
         });
