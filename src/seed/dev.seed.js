@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 const log4js = require('log4js');
 const logger = log4js.getLogger();
 const _ = require('underscore');
+const Chance = require('chance');
+const chance = new Chance();
+
 const DBs = require('../config').DB;
 
 mongoose.connect(DBs.dev, function (err) {
@@ -16,7 +19,8 @@ mongoose.connect(DBs.dev, function (err) {
       addUsers,
       addAflineUser,
       addTopics,
-      addArticles
+      addArticles,
+      addComments
     ], function (err) {
       if (err) {
         logger.error('ERROR SEEDING :O');
@@ -131,5 +135,34 @@ function addArticles(topicDocs, done) {
   }, function (error) {
     if (error) return done(error);
     return done(null, docIds);
+  });
+}
+
+function addComments(docIds, done) {
+  logger.info('adding comments');
+  async.eachSeries(docIds, function (id, cb) {
+    async.eachSeries(_.range(_.sample(_.range(5, 11))), function (x, cbTwo) {
+      var comment = {
+        body: chance.paragraph({sentences: _.sample(_.range(2, 5))}),
+        belongs_to: id,
+        created_by: userData[_.sample(_.range(6))].username,
+        votes: _.sample(_.range(2, 11)),
+        created_at: new Date().getTime()
+      };
+      var commentDoc = new models.Comments(comment);
+      commentDoc.save(function (err) {
+        if (err) {
+          return cb(err);
+        }
+        return cbTwo();
+      });
+    }, function (error) {
+      if (error) return done(error);
+      return cb();
+    });
+
+  }, function (err) {
+    if (err) return done(err);
+    return done();
   });
 }
