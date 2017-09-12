@@ -433,6 +433,19 @@ describe('API', function () {
           }
         });
     });
+
+    it('responds with 422 if the comment id is invalid', function (done) {
+      request(server)
+        .put('/api/comments/fakeid?vote=up')
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(422);
+            expect(res.body.message).to.equal('Comment Id Invalid');
+            done();
+          }
+        });
+    });
   });
 
 });

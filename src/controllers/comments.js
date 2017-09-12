@@ -82,11 +82,15 @@ exports.updateCommentVote = (req, res, next) => {
   const { comment_id } = req.params;
   const { vote } = req.query;
 
+  // if invalid comment_id then return 422
+  if (!mongoose.Types.ObjectId.isValid(comment_id)) 
+    return next({ status: 422, message: 'Comment Id Invalid' });
+
   Comments.findById({ _id: comment_id })
     .then((comment) => {
       if (comment === null)
         return next({ status: 404, message: 'Comment Not Found' });
-             
+
       if (vote === 'up') comment.votes += 1;
       if (vote === 'down' && comment.votes > 0) comment.votes -= 1;
 
