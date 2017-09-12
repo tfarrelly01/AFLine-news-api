@@ -419,6 +419,20 @@ describe('API', function () {
         });
     });
 
+    it('responds with 404 if comment doesnt exist', function (done) {
+      const commentId = usefullIds.article_id;
+      request(server)
+        .put(`/api/comments/${commentId}?vote=down`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.be.an('object');
+            expect(res.body.message).to.equal('Comment Not Found');
+            done();
+          }
+        });
+    });
   });
 
 });

@@ -84,7 +84,9 @@ exports.updateCommentVote = (req, res, next) => {
 
   Comments.findById({ _id: comment_id })
     .then((comment) => {
-      
+      if (comment === null)
+        return next({ status: 404, message: 'Comment Not Found' });
+             
       if (vote === 'up') comment.votes += 1;
       if (vote === 'down' && comment.votes > 0) comment.votes -= 1;
 
