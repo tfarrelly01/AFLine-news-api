@@ -505,4 +505,21 @@ describe('API', function () {
     });
   });
 
+  describe('GET /api/users/:username', function () {
+    it('responds with the user profile record for a particular username', function (done) {
+      let userName = 'afline';
+      request(server)
+        .get(`/api/users/${userName}`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.an('object');
+            expect(res.body.user.name).to.equal('AF Line Ltd');
+            done();
+          }
+        });
+    });
+  });
+
 });

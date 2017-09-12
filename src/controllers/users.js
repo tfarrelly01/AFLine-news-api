@@ -12,3 +12,16 @@ exports.getAllUsers = (req, res, next) => {
     })
     .catch(next);
 };
+
+exports.getUser = (req, res, next) => {
+  // get article id
+  const { username } = req.params;
+
+  // find user that matches username
+  Users.findOne({ username: username })
+    .then((user) => {
+
+      res.status(200).json({ user });
+    })
+    .catch(next);
+};
