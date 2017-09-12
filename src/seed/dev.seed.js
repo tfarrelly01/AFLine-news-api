@@ -11,7 +11,7 @@ const chance = new Chance();
 const moment = require('moment');
 const DBs = require('../config').DB;
 
-mongoose.connect(DBs.dev, function (err) {
+mongoose.connect(DBs.dev, {useMongoClient: true}, function (err) {
   if (!err) {
     logger.info(`connected to database ${DBs.dev}`);
     mongoose.connection.db.dropDatabase();
