@@ -15,6 +15,8 @@ const { getAllCommentsByArticle,
         updateCommentVote,
         deleteCommentById } = require('../controllers/comments');
 
+const { getAllUsers } = require('../controllers/users');
+
 // | `GET /api/topics` | Get all the topics |
 router.route('/topics')
     .get(getAllTopics);
@@ -53,5 +55,9 @@ router.route('/comments/:comment_id')
     .get(getCommentById)
     .put(updateCommentVote)
     .delete(deleteCommentById);
+
+// | `GET /api/users` | Returns a JSON object with all user profile data. |
+router.route('/users')
+    .get(getAllUsers);
 
 module.exports = router;
