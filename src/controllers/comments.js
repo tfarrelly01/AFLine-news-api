@@ -104,7 +104,11 @@ exports.updateCommentVote = (req, res, next) => {
 
 exports.deleteCommentById = (req, res, next) => {
   const { comment_id } = req.params;
-    
+
+  // if invalid comment_id then return 422
+  if (!mongoose.Types.ObjectId.isValid(comment_id)) 
+    return next({ status: 422, message: 'Invalid Comment Id' });
+  
   Comments.findByIdAndRemove(comment_id)
     .then((result) => {
       if (result === null)
