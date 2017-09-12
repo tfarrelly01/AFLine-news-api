@@ -106,7 +106,9 @@ exports.deleteCommentById = (req, res, next) => {
   const { comment_id } = req.params;
     
   Comments.findByIdAndRemove(comment_id)
-    .then(() => {
+    .then((result) => {
+      if (result === null)
+        return next({ status: 404, message: 'Comment doesnt exist!' });
 
       res.status(200).json({ message: 'Comment deleted!' });
     })

@@ -461,6 +461,19 @@ describe('API', function () {
           }
         });
     });
+
+    it('Provides appropriate error message if comment doesnt exist', function (done) {
+      request(server)
+        .delete(`/api/comments/${usefullIds.comment_id}`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(404);
+            expect(res.body.message).to.equal('Comment doesnt exist!');
+            done();
+          }
+        });
+    });
   });
-  
+
 });
