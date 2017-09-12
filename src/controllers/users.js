@@ -20,6 +20,8 @@ exports.getUser = (req, res, next) => {
   // find user that matches username
   Users.findOne({ username: username })
     .then((user) => {
+      if (user === null) 
+        return next({ status: 404, message: 'User Not Found' });
 
       res.status(200).json({ user });
     })

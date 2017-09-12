@@ -520,6 +520,21 @@ describe('API', function () {
           }
         });
     });
+
+    it('responds with 404 if username doesnt exist', function (done) {
+      let userName = 'aflineSSS';
+      request(server)
+        .get(`/api/users/${userName}`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(404);
+            expect(res.body).to.be.an('object');
+            expect(res.body.message).to.equal('User Not Found');
+            done();
+          }
+        });
+    });
   });
 
 });
