@@ -389,6 +389,20 @@ describe('API', function () {
           }
         });
     });
+
+    it('Decrements the vote of a particular comment by one', function (done) {
+      request(server)
+        .put(`/api/comments/${usefullIds.comment_id}?vote=down`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(201);
+            expect(res.body).to.be.an('object');
+            expect(res.body.comment.votes).to.equal(0);
+            done();
+          }
+        });
+    });
   });
 
 });
