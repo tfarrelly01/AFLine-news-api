@@ -403,6 +403,22 @@ describe('API', function () {
           }
         });
     });
+
+    it('does not decrement the votes of a comment if already equal to zero', (done) => {
+      let commentId = usefullIds.comment_id;
+      request(server)
+        .put(`/api/comments/${commentId}?vote=down`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(201);
+            expect(res.body).to.be.an('object');
+            expect(res.body.comment.votes).to.equal(0);
+          }
+          done();
+        });
+    });
+
   });
 
 });

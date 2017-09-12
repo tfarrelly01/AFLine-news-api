@@ -86,7 +86,7 @@ exports.updateCommentVote = (req, res, next) => {
     .then((comment) => {
       
       if (vote === 'up') comment.votes += 1;
-      if (vote === 'down') comment.votes -= 1;
+      if (vote === 'down' && comment.votes > 0) comment.votes -= 1;
 
       comment.save()
         .then((comment) => {
