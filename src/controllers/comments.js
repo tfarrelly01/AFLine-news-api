@@ -101,3 +101,14 @@ exports.updateCommentVote = (req, res, next) => {
     })
     .catch(next);
 };
+
+exports.deleteCommentById = (req, res, next) => {
+  const { comment_id } = req.params;
+    
+  Comments.findByIdAndRemove(comment_id)
+    .then(() => {
+
+      res.status(200).json({ message: 'Comment deleted!' });
+    })
+    .catch(next);
+};

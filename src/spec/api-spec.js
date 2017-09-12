@@ -448,4 +448,19 @@ describe('API', function () {
     });
   });
 
+  describe('DELETE /comments/:comment_id', function () {
+    it('Deletes a comment from the database', function (done) {
+      request(server)
+        .delete(`/api/comments/${usefullIds.comment_id}`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(200);
+            expect(res.body.message).to.equal('Comment deleted!');
+            done();
+          }
+        });
+    });
+  });
+  
 });

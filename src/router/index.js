@@ -12,7 +12,8 @@ const { getAllCommentsByArticle,
         addNewComment, 
         getAllComments, 
         getCommentById,
-        updateCommentVote } = require('../controllers/comments');
+        updateCommentVote,
+        deleteCommentById } = require('../controllers/comments');
 
 // | `GET /api/topics` | Get all the topics |
 router.route('/topics')
@@ -47,8 +48,10 @@ router.route('/comments')
 // | `GET /api/comments/:comment_id` | Get comment by id |
 // | `PUT /api/comments/:comment_id` | Increment or Decrement the votes of a comment by one. This route
 // requires a vote query of 'up' or 'down' i.e. /api/comments/:comment_id?vote=up OR /api/comments/:comment_id?vote=down |
+// | `DELETE /api/comments/:comment_id` | Deletes a comment |
 router.route('/comments/:comment_id')
     .get(getCommentById)
-    .put(updateCommentVote);
+    .put(updateCommentVote)
+    .delete(deleteCommentById);
 
 module.exports = router;
