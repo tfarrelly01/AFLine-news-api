@@ -2,8 +2,17 @@ const express = require('express');
 const router = express.Router();
 
 const { getAllTopics } = require('../controllers/topics');
-const { getAllArticlesByTopic, getAllArticles, getArticleById, updateArticleVote} = require('../controllers/articles');
-const { getAllCommentsByArticle, addNewComment, getAllComments, getCommentById} = require('../controllers/comments');
+
+const { getAllArticlesByTopic, 
+        getAllArticles, 
+        getArticleById, 
+        updateArticleVote} = require('../controllers/articles');
+
+const { getAllCommentsByArticle, 
+        addNewComment, 
+        getAllComments, 
+        getCommentById,
+        updateCommentVote } = require('../controllers/comments');
 
 // | `GET /api/topics` | Get all the topics |
 router.route('/topics')
@@ -19,7 +28,7 @@ router.route('/articles')
 
 // | `GET /api/articles/:article_id` | Get individual article by id |
 // | `PUT /api/articles/:article_id` | Increment or Decrement the votes of an article by one. This route
-// requires a vote query of 'up' or 'down' i.e.: /api/articles/:article_id?vote=up OR /api/articles/:article_id?vote=down |
+// requires a vote query of 'up' or 'down' i.e. /api/articles/:article_id?vote=up OR /api/articles/:article_id?vote=down |
 router.route('/articles/:article_id')
     .get(getArticleById)
     .put(updateArticleVote);
@@ -36,7 +45,10 @@ router.route('/comments')
     .get(getAllComments);
 
 // | `GET /api/comments/:comment_id` | Get comment by id |
+// | `PUT /api/comments/:comment_id` | Increment or Decrement the votes of a comment by one. This route
+// requires a vote query of 'up' or 'down' i.e. /api/comments/:comment_id?vote=up OR /api/comments/:comment_id?vote=down |
 router.route('/comments/:comment_id')
-    .get(getCommentById);
+    .get(getCommentById)
+    .put(updateCommentVote);
 
 module.exports = router;

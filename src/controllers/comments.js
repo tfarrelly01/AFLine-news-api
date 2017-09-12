@@ -76,3 +76,21 @@ exports.getCommentById = (req, res, next) => {
     })
     .catch(next);
 };
+
+exports.updateCommentVote = (req, res, next) => {
+  // find comment by id
+  const { comment_id } = req.params;
+  const { vote } = req.query;
+
+  Comments.findById({ _id: comment_id })
+    .then((comment) => {
+      
+      if (vote === 'up') comment.votes += 1;
+
+      comment.save()
+        .then((comment) => {
+          res.status(201).json({ comment });
+        });
+    })
+    .catch(next);
+};
