@@ -93,7 +93,7 @@ describe('API', function () {
             expect(res.status).to.equal(200);
             expect(res.body).to.be.an('object');
             expect(res.body.articles.length).to.equal(2);
-            expect(res.body.articles[0].comments).to.equal(2);
+            expect(res.body.articles[0].comments).to.be.an('number');
             done();
           }
         });
