@@ -339,7 +339,7 @@ describe('API', () => {
             expect(res.status).to.equal(200);
             expect(res.body).to.be.an('object');
             expect(res.body.comment.body).to.equal('this is a comment');
-            expect(res.body.comment.created_by).to.equal('afline');
+            expect(res.body.comment.created_by).to.equal('northcoder');
             done();
           }
         });
@@ -507,7 +507,7 @@ describe('API', () => {
 
   describe('GET /api/users/:username', () => {
     it('responds with the user profile record for a particular username', (done) => {
-      let userName = 'afline';
+      let userName = 'northcoder';
       request(server)
         .get(`/api/users/${userName}`)
         .end((err, res) => {
@@ -515,14 +515,14 @@ describe('API', () => {
           else {
             expect(res.status).to.equal(200);
             expect(res.body).to.be.an('object');
-            expect(res.body.user.name).to.equal('AF Line Ltd');
+            expect(res.body.user.name).to.equal('Awesome Northcoder');
             done();
           }
         });
     });
 
     it('responds with 404 if username doesnt exist', (done) => {
-      let userName = 'aflineSSS';
+      let userName = 'northcoderSSS';
       request(server)
         .get(`/api/users/${userName}`)
         .end((err, res) => {

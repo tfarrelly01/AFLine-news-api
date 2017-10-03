@@ -17,7 +17,7 @@ mongoose.connect(DBs.dev, {useMongoClient: true}, (err) => {
     mongoose.connection.db.dropDatabase();
     async.waterfall([
       addUsers,
-      addAflineUser,
+      addNorthcoderUser,
       addTopics,
       addArticles,
       addComments
@@ -37,12 +37,12 @@ mongoose.connect(DBs.dev, {useMongoClient: true}, (err) => {
   }
 });
 
-const addAflineUser = (done) => {
+const addNorthcoderUser = (done) => {
   var userDoc = new models.Users(
     {
-      username: 'afline',
-      name: 'AF Line Ltd',
-      avatar_url: 'https://www.linkedin.com/in/tfarrelly01'
+      username: 'northcoder',
+      name: 'Awesome Northcoder',
+      avatar_url: 'https://avatars3.githubusercontent.com/u/6791502?v=3&s=200'
     }
   );
   userDoc.save((err) => {

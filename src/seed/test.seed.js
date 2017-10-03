@@ -4,9 +4,9 @@ const async = require('async');
 const models = require('../models/models');
 
 const user = new models.Users({
-  username: 'afline',
-  name: 'AF Line Ltd',
-  avatar_url: 'https://www.linkedin.com/in/tfarrelly01'
+  username: 'northcoder',
+  name: 'Awesome Northcoder',
+  avatar_url: 'https://avatars3.githubusercontent.com/u/6791502?v=3&s=200'
 });
 
 const topics = [
@@ -43,11 +43,11 @@ const saveArticles = (cb) => {
 
 const saveComments = (articlesArray, cb) => {
   const articleId = articlesArray[0]._id;
-  const comment = new models.Comments({ body: 'this is a comment', belongs_to: articleId, created_by: 'afline' });
-  const comment2 = new models.Comments({ body: 'this is another comment', belongs_to: articleId, created_by: 'afline' });
+  const comment = new models.Comments({ body: 'this is a comment', belongs_to: articleId, created_by: 'northcoder' });
+  const comment2 = new models.Comments({ body: 'this is another comment', belongs_to: articleId, created_by: 'northcoder' });
   models.Comments.create([comment, comment2], err => {
     if (err) cb(err);
-    else cb(null, { article_id: articleId, comment_id: comment._id, non_af_line_comment: comment2._id });
+    else cb(null, { article_id: articleId, comment_id: comment._id, non_northcoder_comment: comment2._id });
   });
 };
 
