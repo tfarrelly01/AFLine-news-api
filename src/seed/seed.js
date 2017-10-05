@@ -1,3 +1,8 @@
+/* eslint-disable no-console */
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'dev';
+require('dotenv').config({ path: `./.${process.env.NODE_ENV}.env` });
+// console.log(process.env);
+ 
 const models = require('../models/models');
 const userData = require('./data/user_data.js');
 const articleData = require('./data/articles.js');
@@ -9,11 +14,11 @@ const _ = require('underscore');
 const Chance = require('chance');
 const chance = new Chance();
 const moment = require('moment');
-const DBs = require('../config').DB;
+// const DBs = require('../config').DB;
 
-mongoose.connect(DBs.dev, {useMongoClient: true}, (err) => {
+mongoose.connect(process.env.DB_URI, {useMongoClient: true}, (err) => {
   if (!err) {
-    logger.info(`connected to database ${DBs.dev}`);
+    logger.info(`connected to database ${process.env.DB_URI}`);
     mongoose.connection.db.dropDatabase();
     async.waterfall([
       addUsers,

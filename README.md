@@ -58,4 +58,3 @@ The API and all of its endpoints have been fully tested, to run the test suite p
 | `DELETE /api/comments/:comment_id` | Deletes a comment |
 | `GET /api/users` | Returns a JSON object with all user profile data. |
 | `GET /api/users/:username` | Returns a JSON object with the profile data for the specified user. |
-

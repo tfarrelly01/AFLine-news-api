@@ -1,11 +1,18 @@
-process.env.NODE_ENV = 'test';
+/* eslint-disable no-console */
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'test';
+require('dotenv').config({ path: `./.${process.env.NODE_ENV}.env` });
+// console.log(process.env);
+
+// process.env.NODE_ENV = 'test';
 const { expect } = require('chai');
 const request = require('supertest');
 const server = require('../server');
 const mongoose = require('mongoose');
 const saveTestData = require('../seed/test.seed');
-const config = require('../config');
-const db = config.DB[process.env.NODE_ENV] || process.env.DB;
+// const config = require('../config');
+// const db = config.DB[process.env.NODE_ENV] || process.env.DB;
+
+const db = process.env.DB_URI;
 
 describe('API', () => {
   let usefullIds;

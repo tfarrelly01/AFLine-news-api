@@ -1,4 +1,8 @@
+/* eslint-disable no-console */
 if (!process.env.NODE_ENV) process.env.NODE_ENV = 'dev';
+if (process.env.NODE_ENV !== 'production') require('dotenv').config({
+  path: `./.${process.env.NODE_ENV}.env`
+});
 
 const express = require('express');
 const morgan = require('morgan');
@@ -7,15 +11,15 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const router = require('./router/index');
-const config = require('./config');
-const db = config.DB[process.env.NODE_ENV] || process.env.DB;
-const PORT = config.PORT[process.env.NODE_ENV] || process.env.PORT;
+// const config = require('./config');
+// const db = config.DB[process.env.NODE_ENV] || process.env.DB;
+// const PORT = config.PORT[process.env.NODE_ENV] || process.env.PORT;
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(db, {useMongoClient: true}, function(err) {
+mongoose.connect(process.env.DB_URI, {useMongoClient: true}, function(err) {
     if (!err) {
-        console.log(`connected to the Database: ${db}`);
+        console.log(`connected to the Database: ${process.env.NODE_ENV}`);
     } else {
         console.log(`error connecting to the Database ${err}`);
     }
@@ -35,9 +39,11 @@ app.get('/', function(req, res) {
 
 app.use('/api', router);
 
+/*
 app.listen(PORT, function() {
     console.log(`listening on port ${PORT}`);
 });
+*/
 
 // sure of error
 app.use(function(err, req, res, next) {
