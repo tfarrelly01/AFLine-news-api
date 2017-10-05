@@ -10,4 +10,4 @@
 **/.idea/*
 *.env
 */config.js
-deployment.md
+DEPLOYMENT.md
