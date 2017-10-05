@@ -13,7 +13,7 @@ const app = express();
 const router = require('./router/index');
 // const config = require('./config');
 // const db = config.DB[process.env.NODE_ENV] || process.env.DB;
-// const PORT = config.PORT[process.env.NODE_ENV] || process.env.PORT;
+const { PORT } = process.env;
 
 mongoose.Promise = global.Promise;
 
@@ -39,11 +39,9 @@ app.get('/', function(req, res) {
 
 app.use('/api', router);
 
-/*
 app.listen(PORT, function() {
     console.log(`listening on port ${PORT}`);
 });
-*/
 
 // sure of error
 app.use(function(err, req, res, next) {
