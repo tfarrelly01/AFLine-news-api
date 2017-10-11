@@ -2,6 +2,14 @@
 
 AF Line News API is a RESTful API which has been developed using Node.js, Express.js, MongoDB and Mongoose.
 
+## Run the api from Heroku
+
+If you want to run the API without installing the software on your computer, open a browser and enter the following url:
+
+`https://afline-news-api.herokuapp.com/`
+
+e.g. `https://afline-news-api.herokuapp.com/api/articles` will return all articles in the database. Please see below for a list of all available routes
+
 ## Installation Instructions
 
 You will need to install Node.js and MongoDB to use the API. 
