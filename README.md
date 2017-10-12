@@ -4,7 +4,7 @@ AF Line News API is a RESTful API which has been developed using Node.js, Expres
 
 ## Run the api from Heroku
 
-If you want to run the API without installing the software on your computer, open a browser and enter the following url:
+If you want to run the production deployed API without installing the software on your computer, open a browser and enter the following url:
 
 `https://afline-news-api.herokuapp.com/`
 
@@ -40,14 +40,18 @@ Open an additional terminal window and start the MongoDB deamon with the followi
 
 Return to your original terminal window and type the following commands:-
 
-`$ node src/seed/dev.seed.js`
-`$ npm start` 
+`$ npm run seed:dev`
+`$ npm run dev` 
 
 Once you have done this, the API will be available on `http://localhost:3000` via your web browser.
 
 The API and all of its endpoints have been fully tested, to run the test suite please enter the following command into the terminal
 
 `$ npm test`
+
+from this point if you want to run the production deployed API then type the following command into the terminal:
+
+`$ npm start`
 
 ### Routes
 
