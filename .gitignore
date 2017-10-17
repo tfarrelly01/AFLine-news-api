@@ -8,6 +8,6 @@
 **/.vscode
 .idea/*
 **/.idea/*
-*.env
+.production.env
 */config.js
 DEPLOYMENT.md
