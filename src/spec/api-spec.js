@@ -21,14 +21,12 @@ describe('API', () => {
       .then(() => saveTestData(db, (err, ids) => {
         if (err) throw err;
         usefullIds = ids;
-        console.log(usefullIds);
         done();
       }));
   });
 
   describe('GET /', () => {
     it('responds with status code 200', (done) => {
-      console.log(usefullIds);
       request(server)
         .get('/')
         .end((err, res) => {
@@ -49,7 +47,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.an('object');
             expect(res.body.topics.length).to.equal(3);
             done();
           }
@@ -65,7 +62,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.an('object');
             expect(res.body.articles[0].belongs_to).to.equal('cats');
             expect(res.body.articles.length).to.equal(1);
             expect(res.body.articles[0].title).to.equal('Cats are great');
@@ -82,7 +78,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(404);
-            expect(res.body).to.be.an('object');
             expect(res.body.message).to.equal('No Articles found for topic cooking');
             done();
           }
@@ -98,7 +93,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.an('object');
             expect(res.body.articles.length).to.equal(2);
             expect(res.body.articles[0].comments).to.be.an('number');
             done();
@@ -115,7 +109,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.an('object');
             expect(res.body.article.title).to.equal('Cats are great');
             expect(res.body.article.comments).to.equal(2);
             done();
@@ -131,7 +124,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(404);
-            expect(res.body).to.be.an('object');
             expect(res.body.message).to.equal('Article Not Found');
             done();
           }
@@ -160,7 +152,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(201);
-            expect(res.body).to.be.an('object');
             expect(res.body.article.votes).to.equal(1);
             done();
           }
@@ -187,7 +178,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(201);
-            expect(res.body).to.be.an('object');
             expect(res.body.article.votes).to.equal(0);
             done();
           }
@@ -201,7 +191,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(201);
-            expect(res.body).to.be.an('object');
             expect(res.body.article.votes).to.equal(0);
           }
           done();
@@ -216,7 +205,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(404);
-            expect(res.body).to.be.an('object');
             expect(res.body.message).to.equal('Article Not Found');
             done();
           }
@@ -245,7 +233,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.an('object');
             expect(res.body.comments.length).to.equal(2);
             done();
           }
@@ -261,7 +248,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(404);
-            expect(res.body).to.be.an('object');
             expect(res.body.message).to.equal('Comments Not Found');
             done();
           }
@@ -291,7 +277,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(201);
-            expect(res.body).to.be.an('object');
             expect(res.body.comment._id).to.not.equal(undefined);
             expect(res.body.comment.body).to.equal('test');
             done();
@@ -308,7 +293,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(404);
-            expect(res.body).to.be.an('object');
             expect(res.body.message).to.equal('Article Not Found, cannot add comment');
             done();
           }
@@ -338,7 +322,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.an('object');
             expect(res.body.comments.length).to.equal(3);
             done();
           }
@@ -354,7 +337,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.an('object');
             expect(res.body.comment.body).to.equal('this is a comment');
             expect(res.body.comment.created_by).to.equal('northcoder');
             done();
@@ -370,7 +352,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(404);
-            expect(res.body).to.be.an('object');
             expect(res.body.message).to.equal('Comment Not Found');
             done();
           }
@@ -384,7 +365,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(422);
-            expect(res.body).to.be.an('object');
             expect(res.body.message).to.equal('Invalid Comment Id');
             done();
           }
@@ -400,7 +380,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(201);
-            expect(res.body).to.be.an('object');
             expect(res.body.comment.votes).to.equal(1);
             done();
           }
@@ -427,7 +406,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(201);
-            expect(res.body).to.be.an('object');
             expect(res.body.comment.votes).to.equal(0);
             done();
           }
@@ -441,7 +419,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(201);
-            expect(res.body).to.be.an('object');
             expect(res.body.comment.votes).to.equal(0);
           }
           done();
@@ -456,7 +433,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(404);
-            expect(res.body).to.be.an('object');
             expect(res.body.message).to.equal('Comment Not Found');
             done();
           }
@@ -526,7 +502,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.an('object');
             expect(res.body.users.length).to.equal(1);
             done();
           }
@@ -543,7 +518,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(200);
-            expect(res.body).to.be.an('object');
             expect(res.body.user.name).to.equal('Awesome Northcoder');
             done();
           }
@@ -558,7 +532,6 @@ describe('API', () => {
           if (err) done(err);
           else {
             expect(res.status).to.equal(404);
-            expect(res.body).to.be.an('object');
             expect(res.body.message).to.equal('User Not Found');
             done();
           }
