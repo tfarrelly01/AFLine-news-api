@@ -16,7 +16,10 @@ const router = require('./router/index');
 const { PORT } = process.env;
 
 mongoose.Promise = global.Promise;
-
+mongoose.connect(process.env.DB_URI, {useMongoClient: true})
+  .then(() => console.log(`successfully connected to ${process.env.NODE_ENV} database`))
+  .catch(err => console.log(`error connecting to the Database ${err}`));
+  /*
 mongoose.connect(process.env.DB_URI, {useMongoClient: true}, function(err) {
     if (!err) {
         console.log(`connected to the Database: ${process.env.NODE_ENV}`);
@@ -24,7 +27,7 @@ mongoose.connect(process.env.DB_URI, {useMongoClient: true}, function(err) {
         console.log(`error connecting to the Database ${err}`);
     }
 });
-
+*/
 app.use(morgan('dev'));
 
 // express middleware
