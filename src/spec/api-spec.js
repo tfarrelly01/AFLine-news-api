@@ -154,9 +154,8 @@ describe('API', () => {
 
   describe('PUT /api/articles/:article_id?vote=[up/down]', () => {
     it('should increment the votes of an article by one', (done) => {
-      let articleId = usefullIds.article_id;
       request(server)
-        .put(`/api/articles/${articleId}?vote=up`)
+        .put(`/api/articles/${usefullIds.article_id}?vote=up`)
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -168,10 +167,22 @@ describe('API', () => {
         });
     });
 
-    it('should decrement the votes of an article by one', (done) => {
-      let articleId = usefullIds.article_id;
+    it('does not update the vote of an article if vote query is invalid', (done) => {
       request(server)
-        .put(`/api/articles/${articleId}?vote=down`)
+        .put(`/api/articles/${usefullIds.article_id}?vote=notupordown`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(201);
+            expect(res.body.article.votes).to.equal(1);
+            done();
+          }
+        });
+    });
+
+    it('should decrement the votes of an article by one', (done) => {
+      request(server)
+        .put(`/api/articles/${usefullIds.article_id}?vote=down`)
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -184,9 +195,8 @@ describe('API', () => {
     });
 
     it('does not decrement the votes of an article if already equal to zero', (done) => {
-      let articleId = usefullIds.article_id;
       request(server)
-        .put(`/api/articles/${articleId}?vote=down`)
+        .put(`/api/articles/${usefullIds.article_id}?vote=down`)
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -199,7 +209,7 @@ describe('API', () => {
     });
 
     it('responds with 404 if article doesnt exist', (done) => {
-      let articleId = usefullIds.comment_id;
+      const articleId = usefullIds.comment_id;
       request(server)
         .put(`/api/articles/${articleId}?vote=down`)
         .end((err, res) => {
@@ -215,7 +225,7 @@ describe('API', () => {
 
     it('responds with 422 if the article id is invalid', (done) => {
       request(server)
-        .put('/api/articles/fakeid?vote=up')
+        .put(`/api/articles/fakeId?vote=up`)
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -397,6 +407,19 @@ describe('API', () => {
         });
     });
 
+    it('does not update the vote of a comment if vote query is invalid', (done) => {
+      request(server)
+        .put(`/api/comments/${usefullIds.comment_id}?vote=notupordown`)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).to.equal(201);
+            expect(res.body.comment.votes).to.equal(1);
+            done();
+          }
+        });
+    });
+
     it('Decrements the vote of a particular comment by one', (done) => {
       request(server)
         .put(`/api/comments/${usefullIds.comment_id}?vote=down`)
@@ -412,9 +435,8 @@ describe('API', () => {
     });
 
     it('does not decrement the votes of a comment if already equal to zero', (done) => {
-      let commentId = usefullIds.comment_id;
       request(server)
-        .put(`/api/comments/${commentId}?vote=down`)
+        .put(`/api/comments/${usefullIds.comment_id}?vote=down`)
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -443,7 +465,7 @@ describe('API', () => {
 
     it('responds with 422 if the comment id is invalid', (done) => {
       request(server)
-        .put('/api/comments/fakeid?vote=up')
+        .put(`/api/comments/fakeid?vote=up`)
         .end((err, res) => {
           if (err) done(err);
           else {
