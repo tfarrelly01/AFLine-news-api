@@ -79,10 +79,10 @@ exports.getArticleById = (req, res, next) => {
     return next({ status: 422, message: 'Invalid Article Id' });
 
   // find article that matches article_id
-  // Users.find({ username: username })
+  // Users.find({ _id: article_id })
   Articles.findOne({ _id: article_id })
     .then((article) => {
-      //   if (user.length < 1) {  
+      //   if (article.length < 1) {  
       if (article === null)
         return next({ status: 404, message: 'Article Not Found' });
       
