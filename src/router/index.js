@@ -18,16 +18,13 @@ const { getAllCommentsByArticle,
 const { getAllUsers, getUser } = require('../controllers/users');
 
 // | `GET /api/topics` | Get all the topics |
-router.route('/topics')
-    .get(getAllTopics);
+router.get('/topics', getAllTopics);
 
 // | `GET /api/topics/:topic_id/articles` | Return all the articles for a particular topic |
-router.route('/topics/:topic_id/articles')
-    .get(getAllArticlesByTopic);
+router.get('/topics/:topic_id/articles', getAllArticlesByTopic);
 
 // | `GET /api/articles` | Get all the articles |
-router.route('/articles')
-    .get(getAllArticles);
+router.get('/articles', getAllArticles);
 
 // | `GET /api/articles/:article_id` | Get individual article by id |
 // | `PUT /api/articles/:article_id` | Increment or Decrement the votes of an article by one. This route
@@ -44,8 +41,7 @@ router.route('/articles/:article_id/comments')
     .post(addNewComment);
 
 // |`GET /api/comments` | Get all the comments |
-router.route('/comments')
-    .get(getAllComments);
+router.get('/comments', getAllComments);
 
 // | `GET /api/comments/:comment_id` | Get comment by id |
 // | `PUT /api/comments/:comment_id` | Increment or Decrement the votes of a comment by one. This route
@@ -57,11 +53,9 @@ router.route('/comments/:comment_id')
     .delete(deleteCommentById);
 
 // | `GET /api/users` | Returns a JSON object with all user profile data. |
-router.route('/users')
-    .get(getAllUsers);
+router.get('/users', getAllUsers);
 
 // | `GET /api/users/:username` | Returns a JSON object with the profile data for the specified user. |
-router.route('/users/:username')
-    .get(getUser);
+router.get('/users/:username', getUser);
 
 module.exports = router;
