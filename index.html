@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      font-family: Georgia, Times, serif;
+    }
+    table {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+      
+    }
+    th {
+      font-size: 1.2em;
+      letter-spacing: 0.1em;
+      background-color: #f2f2f2;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.5em 1em;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>AF Line News API</h1>
+    <p>AF Line News API is a RESTful API which has been developed using Node.js, Express.js, MongoDB and Mongoose.</p>
+
+    <h2>Example Usage</h2>
+    <p>
+      Typing the following url: 
+      <a href="https://afline-news-api.herokuapp.com/api/articles">
+        https://afline-news-api.herokuapp.com/api/articles
+      </a> will return all articles in the database.
+    </p>
+
+    <p>All available routes are listed in the table below</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Route</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>GET /api/topics</td>
+          <td>Get all the topics</td>
+        </tr>
+        <tr>
+          <td>GET /api/topics/:topic_id/articles</td>
+          <td>Return all the articles for a particular topic</td>
+        </tr>
+        <tr>
+          <td>GET /api/articles</td>
+          <td>Get all the articles</td>
+        </tr>
+        <tr>
+          <td>GET /api/articles/:article_id</td>
+          <td>Get individual article by id</td>
+        </tr>
+        <tr>
+          <td>PUT /api/articles/:article_id</td>
+          <td>Increment or Decrement the votes of an article by one. This route requires a vote query of 'up' or 'down' e.g. /api/articles/:article<em>id?vote=up</td>
+        </tr>
+        <tr>
+          <td>GET /api/articles/:article_id/comments</td>
+          <td>Get all comments for an individual article</td>
+        </tr>
+        <tr>
+          <td>POST /api/articles/:article_id/comments</td>
+          <td>Add a new comment to an article. This route requires a JSON body with  a comment key and value pair e.g: {"comment": "This is my new comment"}</td>
+        </tr>
+        <tr>
+          <td>GET /api/comments</td>
+          <td>Get all the comments</td>
+        </tr>
+        <tr>
+          <td>GET /api/comments/:comment_id</td>
+          <td>Get comment by id</td>
+        </tr>
+        <tr>
+          <td>PUT /api/comments/:comment_id</td>
+          <td>Increment or Decrement the votes of a comment by one. This route requires a vote query of 'up' or 'down' e.g. /api/comments/:comment</em>id?vote=down</td>
+        </tr>
+        <tr>
+          <td>DELETE /api/comments/:comment_id</td>
+          <td>Deletes a comment</td>
+        </tr>
+        <tr>
+          <td>GET /api/users</td>
+          <td>Returns a JSON object with all user profile data.</td>
+        </tr>
+        <tr>
+          <td>GET /api/users/:username</td>
+          <td>Returns a JSON object with the profile data for the specified user.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config({
   path: `./.${process.env.NODE_ENV}.env`
 });
 
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -30,7 +31,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', function(req, res) {
-    res.status(200).send('All good!');
+//   res.status(200).send('All good!');
+    res.sendFile(path.join(__dirname + '/index.html'));  
 });
 
 app.use('/api', router);
