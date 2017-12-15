@@ -4,11 +4,11 @@ AF Line News API is a RESTful API which has been developed using Node.js, Expres
 
 ## Run the Production Deployed API
 
-If you want to run the production deployed API without installing the software on your computer, open a browser and enter the following url:
+If you want to run the production deployed API without installing the software onto your computer, open a browser and enter the following url:
 
 `https://afline-news-api.herokuapp.com/`
 
-e.g. `https://afline-news-api.herokuapp.com/api/articles` will return all articles in the database. Please see below for a list of all available routes
+e.g. `https://afline-news-api.herokuapp.com/api/articles` will return all articles in the database. Please refer to the table below for a list of all available routes
 
 ## Installation Instructions
 
@@ -48,12 +48,6 @@ Once you have done this, the API will be available on `http://localhost:3000` vi
 The API and all of its endpoints have been fully tested, to run the test suite please enter the following command into the terminal
 
 `$ npm test`
-
-from this point if you want to run the production deployed API then type the following command into the terminal:
-
-From this point if you want to run the production deployed APIthen open a browser and enter the following url:
-
-`https://afline-news-api.herokuapp.com/`
 
 ### Routes
 
